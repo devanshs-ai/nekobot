@@ -1,32 +1,43 @@
 package ascii
 
 const (
-	VengeanceRed = "\033[31m"
-	CyberTeal    = "\033[36m"
-	Reset        = "\033[0m"
+	Pink  = "\033[38;5;205m"
+	Teal  = "\033[38;5;51m"
+	Red   = "\033[31m"
+	Dim   = "\033[2m"
+	Reset = "\033[0m"
 )
 
-func GetNeko(cpu float64, active bool) string {
-	if cpu > 80 {
-		return VengeanceRed + `
-   |\---/|    ( OVERHEAT! )
-   ( > < )  /
-    > ^ <  # #
-   /  ~  \
-` + Reset
+func GetNeko(cpu float64, mem float64, active bool, uptime uint64) string {
+	if cpu > 70 {
+		return Red + `
+       /\___/\
+      ( > x < )  !!!!
+      /  vvv  \  CPU CRITICAL
+     (  |   |  )
+      \_|___|_/ ` + Reset
+	}
+	if mem > 80 {
+		return Pink + `
+       /\___/\
+      ( @ o @ )  *heavy*
+      /  ---  \  RAM BLOAT
+     (  |   |  )
+      \_|___|_/ ` + Reset
 	}
 	if !active {
-		return "\033[2m" + `
-   |\---/|    ( ...lonely )
-   ( - - )  /
-    v w v 
-   /     \
-` + Reset
+		return Dim + `
+       /\___/\
+      ( - . - )  ...
+      /  ---  \  LONELY
+     (  |   |  )
+      \_|___|_/ ` + Reset
 	}
-	return CyberTeal + `
-   |\---/|    ( Online. )
-   ( o o )  /
-    > ^ < 
-   /     \
-` + Reset
+	// Default "Cyber-Brain" Active State
+	return Teal + `
+       /\___/\
+      ( ^ . ^ )  ONLINE
+      /  > <  \  SYNCED
+     (  |   |  )
+      \_|___|_/ ` + Reset
 }
